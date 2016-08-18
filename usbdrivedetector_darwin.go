@@ -10,11 +10,9 @@ package usbdrivedetector
 import (
 	"bufio"
 	"bytes"
-	"io"
 	"os"
 	"os/exec"
 	"regexp"
-	"strings"
 )
 
 // Detect returns a list of file paths pointing to the root folder of
@@ -32,16 +30,12 @@ func Detect() ([]string, error) {
 		return drives, err
 	}
 
-	b := bufio.NewReader(bytes.NewReader(out))
-	for {
-		line, err := b.ReadString('\n')
-		line = strings.TrimSpace(line)
+	s := bufio.NewScanner(bytes.NewReader(out))
+	for s.Scan() {
+		line := s.Text()
 		if macOSPattern.MatchString(line) {
 			d := macOSPattern.FindStringSubmatch(line)[1]
 			driveMap[d] = true
-		}
-		if err == io.EOF {
-			break
 		}
 	}
 
