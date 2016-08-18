@@ -11,6 +11,7 @@ import (
 	"bufio"
 	"bytes"
 	"io"
+	"os"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -45,8 +46,10 @@ func Detect() ([]string, error) {
 	}
 
 	for k := range driveMap {
-		// TODO try os.Open on the drive before adding it to list
-		drives = append(drives, k)
+		_, err := os.Open(k)
+		if err == nil {
+			drives = append(drives, k)
+		}
 	}
 
 	return drives, nil
