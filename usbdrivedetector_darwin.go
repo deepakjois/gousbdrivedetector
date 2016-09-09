@@ -1,10 +1,3 @@
-// Package usbdrivedetector detects all USB storage devices connected to a computer.
-// It currently works on OS X, with Linux and Windows support coming soon.
-//
-// Source code and other details for the project are available at Github:
-//
-// https://github.com/deepakjois/gousbdrivedetector
-//
 package usbdrivedetector
 
 import (
