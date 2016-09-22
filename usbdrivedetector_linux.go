@@ -21,7 +21,7 @@ func Detect() ([]string, error) {
 	out, err := exec.Command(cmd).Output()
 
 	if err != nil {
-		return drives, err
+		log.Printf("Error calling df: %s", err)
 	}
 
 	s := bufio.NewScanner(bytes.NewReader(out))
