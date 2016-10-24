@@ -26,8 +26,8 @@ func Detect() ([]string, error) {
 	s := bufio.NewScanner(bytes.NewReader(out))
 	for s.Scan() {
 		line := s.Text()
-		if line != "" && line != "DeviceID" {
-			rootPath := line + string(os.PathSeparator)
+		if strings.Contains(line, ":") {
+			rootPath := strings.TrimSpace(line) + string(os.PathSeparator)
 			driveMap[rootPath] = true
 		}
 	}
