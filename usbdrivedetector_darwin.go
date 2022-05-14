@@ -33,10 +33,11 @@ func Detect() ([]string, error) {
 	}
 
 	for k := range driveMap {
-		_, err := os.Open(k)
+		file, err := os.Open(k)
 		if err == nil {
 			drives = append(drives, k)
 		}
+		file.Close()
 	}
 
 	return drives, nil
