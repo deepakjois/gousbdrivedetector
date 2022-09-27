@@ -7,7 +7,7 @@ import (
 
 func TestDetect(t *testing.T) {
 	drives, err := Detect()
-	if err != nil {
+	if drives != nil {
 		fmt.Println(drives)
 	}
 }
