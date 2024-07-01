@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"syscall"
 	"strings"
 )
 
@@ -15,9 +16,10 @@ func Detect() ([]string, error) {
 	var drives []string
 	driveMap := make(map[string]bool)
 
-	cmd := "wmic"
 	args := []string{"logicaldisk", "where", "drivetype=2", "get", "deviceid"}
-	out, err := exec.Command(cmd, args...).Output()
+	cmd := exec.Command("wmic", args...)
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	out, err := cmd.Output()
 
 	if err != nil {
 		return drives, err
